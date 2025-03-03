@@ -1,52 +1,52 @@
 # Student Records Management System with AVL Tree
 
-Welcome to the Student Records Management System—a project born out of late-night coffee sessions, lots of debugging, and a passion for data structures! This is my third adventure into managing student records, and this time, I teamed up with an AVL Tree to keep things balanced (pun intended). Built for the Data Structures and Algorithms Lab at NIT Warangal, this C++ project handles student data with operations like adding students, modifying grades, and querying roll numbers—all while ensuring the tree stays balanced for efficiency. Let’s dive into how we got here and how you can explore it yourself!
+Hey there! Welcome to our Student Records Management System—a labor of love crafted for the Data Structures and Algorithms Lab at NIT Warangal. This project marks our third dive into managing student records, and this time, we’ve leveled up from linked lists to the balanced world of AVL Trees. Picture this: a team of us huddled around laptops, fueled by coffee and determination, turning a pile of code into a sleek system that handles student data with finesse. Let’s walk you through how we built it, what it does, and how you can give it a spin!
 
 ## About the Project
 
-This project is the third in a series of student record systems I’ve built for our DSA lab. The first two used linked lists—simple, linear, and straightforward. But for this term project, our professor threw us a curveball: use an AVL Tree instead. Why? Because AVL Trees self-balance, keeping operations like insertion and deletion at O(log n) time, unlike the O(n) slog of linked lists for some tasks. It’s like upgrading from a bicycle to a scooter—faster and smoother!
+This is the third installment in our series of student record systems for the DSA lab. Our first two projects leaned on linked lists—simple, linear, and a bit like organizing a playlist. For this term project, though, our professor challenged us to swap that out for an AVL Tree. Why? Because AVL Trees keep themselves balanced, ensuring operations stay snappy at O(log n) time, unlike the O(n) crawl of linked lists for some tasks. It’s like trading a skateboard for a zippy electric scooter—more complexity, but oh-so-worth-it for efficiency!
 
-The system reads commands from an `input.txt` file, processes them (think adding students or tweaking course marks), and displays the AVL Tree’s state after each operation. It’s modular, with separate files for the tree logic, file handling, and student data, making it easy to tweak or extend.
+Built in C++, this system reads commands from an `input.txt` file, processes them (think adding students, tweaking grades, or querying roll numbers), and prints the AVL Tree’s state after each step. It’s split into neat modules—tree operations, file handling, and data structures—so we could wrangle the complexity without losing our minds.
 
 ### Features
-- **AVL Tree Core**: Stores student records (roll number, name, CGPA, courses) with automatic balancing.
-- **Operations**: Supports 12 operations (insert student, modify CGPA, add/delete courses, roll number queries, etc.).
-- **File Input**: Reads multi-line commands from `input.txt` (e.g., `# 1` for adding a student).
-- **Error Handling**: Catches invalid formats or data ranges with clear messages.
-- **Display**: Shows the tree state after every operation, in-order traversal style.
+- **AVL Tree Backbone**: Stores student records (roll number, name, CGPA, courses) with self-balancing magic.
+- **Operations Galore**: Handles 12 operations—inserting students, modifying CGPA/courses, deleting records, and roll number range queries.
+- **File-Driven**: Parses multi-line commands from `input.txt` (e.g., `# 1` to add a student).
+- **Error Checking**: Catches bad formats or out-of-range values with friendly messages.
+- **Tree Display**: Shows the tree’s current state after every operation, in-order style.
 
-## How We Built It
+## Our Journey
 
-### The Journey
-Starting with the linked list projects gave me a solid foundation—handling student data was familiar territory. But switching to an AVL Tree? That was a leap! I began by sketching out the basics: a `node` class for student info (roll number, name, CGPA, courses, height, pointers), and a `node_operations` class for tree logic (rotations, balancing, CRUD operations).
+### From Linked Lists to AVL Trees
+Having tackled two linked list projects before, we were comfy with pointers and linear traversal. But AVL Trees? That was uncharted territory! We started by sketching out the `node` class—roll number, name, CGPA, a course array, plus height and left/right pointers for the tree. The `node_operations` class came next, packed with AVL goodies like rotations, balancing, and operations to add or tweak student data.
 
-The first challenge was the AVL Tree itself. Linked lists were easy—just point to the next node. Here, I had to master left and right rotations, balance factors, and height updates. I spent hours with pen and paper, drawing trees, inserting nodes like `246` or `105`, and rotating them until the balance clicked. Debugging crashes from unbalanced trees was a rite of passage!
+The AVL Tree was our first big hurdle. Linked lists were a breeze—just hook up the next node. Here, we had to wrap our heads around balance factors, left/right rotations, and height updates. We doodled trees on paper, inserted nodes like `246` or `105`, and rotated them until the logic clicked. Early attempts crashed hard—unbalanced trees are unforgiving—but after some late-night debugging, we got the rotations humming.
 
-Next came the file handling. The `input.txt` format—`# 1` followed by student data and courses—was tricky. My initial `filehandler.cpp` tried parsing everything on one line, but the multi-line structure (e.g., courses on separate lines) tripped me up. I iterated through several versions, tweaking `processOperation` to grab data after `# <number>`, and adjusting `handleInsertStudent` to read course lines from the file stream. Lots of `cout` debugging later, I got it to work—seeing `Roll No: 246` pop up felt like a victory lap!
+File handling was the next beast. The `input.txt` format—`# 1` followed by student data and course lines—threw us for a loop. Our first stab at `filehandler.cpp` tried parsing everything on one line, but the multi-line reality (e.g., courses on separate lines) stumped us. We iterated, tweaking how we read lines after `# <number>`, and leaned on `cout` to peek at what we were parsing. It took a few rounds of trial-and-error (and a lot of error messages), but we finally nailed it—seeing `Roll No: 246` with its course pop up was a fist-pump moment!
 
-Integration was the final hurdle. Linking `node_operations` with `filehandler` meant ensuring operations like `addStudent` and `deleteCourse` played nice with the file input. I hit snags with pointer references (`node*&` vs `node*`) and course array updates, but after some trial-and-error (and a few too many compiler errors), it all came together.
+Tying it all together was the finale. Linking `node_operations` with `filehandler` meant wrestling with pointer references (`node*&` vs `node*`) and course array updates. We hit snags—like forgetting to read the next line for data—but after hammering out the bugs, the system clicked into place. Running it with the full `input.txt` and watching the tree grow and balance was pure satisfaction.
 
-### Compared to Previous Projects
-Unlike the linked list versions, this project demanded tree balancing—think `leftRotate` and `rightRotate` instead of just `next` pointers. The file handling stayed similar, but the AVL Tree’s efficiency shines for larger datasets. Where linked lists chugged through linear searches, the AVL Tree zips along with logarithmic performance. It’s a trade-off: more complexity upfront, but better scalability.
+### How It Differs from Before
+Compared to our linked list projects, this one’s a leap forward. Linked lists were all about `next` pointers and linear searches—fine for small datasets but sluggish for big ones. The AVL Tree brings logarithmic performance, trading simplicity for speed. File parsing stayed similar, but the tree’s balancing act (hello, `leftRotate` and `rightRotate`!) makes this version shine for scalability.
 
 ## Project Structure
 
-- **`main.cpp`**: The entry point—reads `input.txt` and kicks off processing.
-- **`node.h` / `node.cpp`**: Defines the AVL Tree node with student data and course management methods.
-- **`node_operations.h` / `node_operations.cpp`**: Handles AVL Tree operations (insert, delete, rotate, balance).
-- **`courseinfo.h` / `courseinfo.cpp`**: Manages course data (ID and marks).
-- **`filehandler.h` / `filehandler.cpp`**: Parses `input.txt` and executes commands.
-- **`makefile`**: Builds and runs the project with simple commands.
+- **`src/main.cpp`**: The starting line—reads `input.txt` and fires up the system.
+- **`src/node.h` / `src/node.cpp`**: Defines the AVL Tree node, juggling student data and courses.
+- **`src/node_operations.h` / `src/node_operations.cpp`**: Runs the AVL Tree show—insertions, deletions, rotations, and more.
+- **`src/courseinfo.h` / `src/courseinfo.cpp`**: Keeps course data (ID, marks) in check.
+- **`src/filehandler.h` / `src/filehandler.cpp`**: Reads `input.txt` and turns commands into action.
+- **`src/makefile`**: Our build buddy—compiles and runs everything with a few commands.
 
 ## Getting Started
 
-### Prerequisites
-- **C++ Compiler**: GCC (I used `g++` on WSL).
-- **Make**: For the `makefile` to work.
-- **OS**: Tested on WSL (Ubuntu on Windows), but should run on Linux/macOS too.
+### What You’ll Need
+- **C++ Compiler**: We used `g++` (tested on WSL’s Ubuntu).
+- **Make**: To wield the `makefile`.
+- **OS**: Built on WSL (Windows Subsystem for Linux), but should vibe on Linux or macOS too.
 
-### Installation
+### Setup
 1. Clone the repo:
    ```bash
-   git clone https://github.com/yourusername/student-records-avl.git
-   cd student-records-avl
+   git clone https://github.com/DSA-Term-Project-Team/Term-Project-DSA.git
+   cd Term-Project-DSA/src
