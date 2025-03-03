@@ -1,64 +1,85 @@
 #include "../Headers/node.h"
 #include <string>
+#include <iostream>
+
 node::node(int rollNo, std::string name, float cgpa, int numOfCourses, courses* courseList) {
-	this->rollNo = rollNo;
-	this->name = name;
-	this->cgpa = cgpa;
-	this->numOfCourses = numOfCourses;
-	this->course = new courses[numOfCourses];
-	for (int i = 0; i < numOfCourses; i++) {
-		this->course[i] = courseList[i];
-	}
-	this->left = nullptr;
-	this->right = nullptr;
+    this->rollNo = rollNo;
+    this->name = name;
+    this->cgpa = cgpa;
+    this->numOfCourses = numOfCourses;
+    this->course = (numOfCourses > 0) ? new courses[numOfCourses] : nullptr;
+    for (int i = 0; i < numOfCourses; i++) {
+        this->course[i] = courseList[i];
+    }
+    this->left = nullptr;
+    this->right = nullptr;
+    this->height = 1;
 }
 
-int node::getRollNo() {
-	return rollNo;
+node::~node() {
+    delete[] course;
 }
-int node::getNumOfCourses() {
-	return numOfCourses;
+
+courses node::getCourse(int index) const {
+    if (index >= 0 && index < numOfCourses) {
+        return course[index];
+    }
+    return courses(0, 0.0);
 }
-std::string node::getName() {
-	return name;
+
+void node::addCourse(int courseId, float marks) {
+    courses* newCourses = new courses[numOfCourses + 1];
+    for (int i = 0; i < numOfCourses; i++) {
+        newCourses[i] = course[i];
+    }
+    newCourses[numOfCourses].setCourseId(courseId);
+    newCourses[numOfCourses].setMarks(marks);
+    delete[] course;
+    course = newCourses;
+    numOfCourses++;
 }
-float node::getCgpa() {
-	return cgpa;
+
+void node::deleteCourse(int courseId) {
+    int index = -1;
+    for (int i = 0; i < numOfCourses; i++) {
+        if (course[i].getCourseId() == courseId) {
+            index = i;
+            break;
+        }
+    }
+    if (index == -1) return;
+    courses* newCourses = (numOfCourses > 1) ? new courses[numOfCourses - 1] : nullptr;
+    for (int i = 0, j = 0; i < numOfCourses; i++) {
+        if (i != index) {
+            newCourses[j] = course[i];
+            j++;
+        }
+    }
+    delete[] course;
+    course = newCourses;
+    numOfCourses--;
 }
-void node::setRollNo(int newRollNo) {
-	rollNo = newRollNo;
+
+void node::updateCourse(int courseId, float newMarks) {
+    for (int i = 0; i < numOfCourses; i++) {
+        if (course[i].getCourseId() == courseId) {
+            course[i].setMarks(newMarks);
+            return;
+        }
+    }
 }
-void node::setName(std::string newName) {
-	name = newName;
+
+void node::displayCourses() const {
+    for (int i = 0; i < numOfCourses; i++) {
+        std::cout << course[i].getCourseId() << ": " << course[i].getMarks() << std::endl;
+    }
 }
-void node::setCgpa(float newCgpa) {
-	cgpa = newCgpa;
-}
-void node::setNumOfCourses(int newNumOfCourses) {
-	numOfCourses = newNumOfCourses;
-}
-courses* node::getCourse() {
-	return course;
-}
-node* node::getLeft() {
-	return left;
-}
-node* node::getRight() {
-	return right;
-}
-void node::setLeft(node* newLeft) {
-	left = newLeft;
-}
-void node::setRight(node* newRight) {
-	right = newRight;
-}
-courses node::getCourse(int index)
-{
-	return course[index];
-}
-int getHeight() {
-	return height;
-}
-void setHeight(int newHeight) {
-	height = newHeight;
+
+void node::setCourses(courses* newCourses, int newNumCourses) {
+    delete[] course;
+    numOfCourses = newNumCourses;
+    course = (newNumCourses > 0) ? new courses[newNumCourses] : nullptr;
+    for (int i = 0; i < newNumCourses; i++) {
+        course[i] = newCourses[i];
+    }
 }
