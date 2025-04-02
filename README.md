@@ -144,7 +144,7 @@ This project was completed through the teamwork of Hardik Prajapati and Rayi Cha
 * **Course Information (`Courseinfo.cpp`):**
     * Contributed to the implementation of the `Courseinfo.cpp` file, with assistance from Rayi Charan Harsha.
     * **Relevant File:** `Term Project DSA/src/courseinfo.cpp`
-# Student Records Management System using AVL Tree
+
 
 ## Project Description
 
@@ -286,4 +286,4 @@ The project is designed to be compiled and executed in a Linux environment. The 
 * Kasoju Pavan Tej (24CSB1A27)
 * Rayi Charan Harsha (24CSB1A54)
 
-###Thank you###
+##Thank you
